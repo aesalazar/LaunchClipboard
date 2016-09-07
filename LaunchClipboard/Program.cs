@@ -11,6 +11,7 @@ namespace LaunchClipboard
 {
     public static class Program
     {
+        [STAThread]
         public static void Main(string[] args)
         {
             var clipString = string.Empty;
