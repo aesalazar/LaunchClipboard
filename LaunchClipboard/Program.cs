@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LaunchClipboard
 {
@@ -21,8 +16,8 @@ namespace LaunchClipboard
                 //Get the string content of the clipboard if it is text
                 if (!Clipboard.ContainsText())
                     throw new ArgumentException("The content of the clipboard is not text.");
-                else
-                    clipString = Clipboard.GetText().Trim();
+
+                clipString = Clipboard.GetText().Trim();
 
                 //Create the process for launch the file
                 var proc = new Process
@@ -43,13 +38,9 @@ namespace LaunchClipboard
                 if (clipString.Length > 100)
                     clipString = $"{clipString.Substring(0, 100)} ...";
 
-                //Its is not a valid path
-                var errorMessage = "The file path does not appear to be valid:";
-                var errorClip = $"\"{clipString}\"";
-
-                //Return the messagebox
+                //Its is not a valid path so return the message box
                 MessageBox.Show(
-                    $"{errorMessage}{Environment.NewLine}{Environment.NewLine}{errorClip}"
+                    $"The file path does not appear to be valid:{Environment.NewLine}{Environment.NewLine}\"{clipString}\""
                     , "Launch Clipboard"
                     , MessageBoxButtons.OK
                     , MessageBoxIcon.Exclamation);
