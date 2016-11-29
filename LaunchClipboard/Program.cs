@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Diagnostics;
 using System.Windows.Forms;
 
@@ -18,6 +19,10 @@ namespace LaunchClipboard
                     throw new ArgumentException("The content of the clipboard is not text.");
 
                 clipString = Clipboard.GetText().Trim();
+
+                //Make sure it is not calling itself
+                if (clipString.EndsWith(AppDomain.CurrentDomain.FriendlyName))
+                    throw new ArgumentException($"{AppDomain.CurrentDomain.FriendlyName} seems to be attempting to launch itself!");
 
                 //Create the process for launch the file
                 var proc = new Process
